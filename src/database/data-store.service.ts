@@ -45,6 +45,20 @@ export class DataStoreService implements OnModuleInit {
         await mongoose.connect(uri, { serverSelectionTimeoutMS: 5000 });
         this.isMongoConnected = true;
         this.logger.log(`>> Successfully connected to MongoDB Atlas Cluster0! <<`);
+
+        // Sync initial data to MongoDB collections
+        const db = mongoose.connection.db;
+        if (db) {
+          await Promise.all([
+            ...this.users.map((u) => db.collection('users').updateOne({ email: u.email }, { $set: u }, { upsert: true })),
+            ...this.plans.map((p) => db.collection('plans').updateOne({ code: p.code }, { $set: p }, { upsert: true })),
+            ...this.customers.map((c) => db.collection('customers').updateOne({ _id: c._id }, { $set: c }, { upsert: true })),
+            ...this.providers.map((pr) => db.collection('providers').updateOne({ _id: pr._id }, { $set: pr }, { upsert: true })),
+            ...this.events.map((e) => db.collection('events').updateOne({ _id: e._id }, { $set: e }, { upsert: true })),
+            ...this.pitruRecords.map((pt) => db.collection('pitru_records').updateOne({ _id: pt._id }, { $set: pt }, { upsert: true })),
+          ]);
+          this.logger.log(`>> Synced collections to 'srianvaya_db' on MongoDB Atlas! <<`);
+        }
       } catch (err: any) {
         this.logger.warn(`MongoDB Atlas connection note: ${err.message}. Operating in memory-backed hybrid persistence.`);
       }
