@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException, BadRequestException, Logger } from '@nestjs/common';
+import { Injectable, UnauthorizedException, BadRequestException, NotFoundException, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { DataStoreService } from '../../database/data-store.service';
@@ -127,6 +127,40 @@ export class AuthService {
         roles: user.roles,
         customerProfile,
         providerProfile,
+      },
+      token,
+    };
+  }
+
+  async resetPassword(dto: { email?: string; userId?: string; newPassword: string }) {
+    if (!dto.newPassword || dto.newPassword.trim().length < 6) {
+      throw new BadRequestException('New password must be at least 6 characters long');
+    }
+
+    let user = null;
+    if (dto.userId) {
+      user = this.dataStore.users.find((u) => u._id === dto.userId);
+    } else if (dto.email) {
+      user = this.dataStore.users.find((u) => u.email.toLowerCase() === dto.email.toLowerCase().trim());
+    }
+
+    if (!user) {
+      throw new NotFoundException('Account with specified email/ID not found');
+    }
+
+    const newHash = await bcrypt.hash(dto.newPassword.trim(), 10);
+    user.passwordHash = newHash;
+    this.logger.log(`Password reset successfully for user: ${user.email} (No old password required)`);
+
+    const token = this.generateToken(user);
+    return {
+      success: true,
+      message: 'Password has been reset successfully! You can now sign in with your new password.',
+      user: {
+        id: user._id,
+        email: user.email,
+        fullName: user.fullName,
+        roles: user.roles,
       },
       token,
     };
