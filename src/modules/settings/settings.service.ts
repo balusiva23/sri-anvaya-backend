@@ -15,6 +15,80 @@ export class SettingsService {
     return this.dataStore.systemSettings;
   }
 
+  async getContactInfo() {
+    const getVal = (key: string, fallback: string) => {
+      const found = this.dataStore.systemSettings.find((s) => s.key === key);
+      return found?.value || fallback;
+    };
+
+    return {
+      headquartersTitle: getVal('contact_hq_title', 'National Headquarters'),
+      headquartersSubtitle: getVal(
+        'contact_hq_subtitle',
+        'Serving Chennai, Bengaluru, Hyderabad, Mumbai, Delhi-NCR, and Overseas NRIs.'
+      ),
+      operationsCenterTitle: getVal('contact_ops_title', 'Operations Centre'),
+      address: getVal(
+        'contact_address',
+        'Heritage Arcade, North Mada Street, Mylapore, Chennai, TN 600004'
+      ),
+      phone: getVal('contact_phone', '+91 98840 12345 / +91 44 2499 5500'),
+      email: getVal('contact_email', 'care@srianvaya.com / support@srianvaya.com'),
+      timings: getVal('contact_timings', '8 AM - 8 PM IST (Mon - Sun)'),
+      footerLocations: getVal(
+        'contact_footer_locations',
+        'Mylapore / Bengaluru / Hyderabad (Expanding Pan-India & NRI Services)'
+      ),
+      welfareBadgeText: getVal('contact_welfare_badge', '12% Provider Welfare Committed'),
+      tagline: getVal('contact_tagline', 'Honouring Roots. Enriching Generations.'),
+    };
+  }
+
+  async updateContactInfo(dto: any) {
+    const keysMap: Record<string, string> = {
+      headquartersTitle: 'contact_hq_title',
+      headquartersSubtitle: 'contact_hq_subtitle',
+      operationsCenterTitle: 'contact_ops_title',
+      address: 'contact_address',
+      phone: 'contact_phone',
+      email: 'contact_email',
+      timings: 'contact_timings',
+      footerLocations: 'contact_footer_locations',
+      welfareBadgeText: 'contact_welfare_badge',
+      tagline: 'contact_tagline',
+    };
+
+    for (const [prop, key] of Object.entries(keysMap)) {
+      if (dto[prop] !== undefined) {
+        let setting = this.dataStore.systemSettings.find((s) => s.key === key);
+        if (!setting) {
+          setting = { _id: `set_${key}`, key, value: String(dto[prop]), category: 'CONTACT' };
+          this.dataStore.systemSettings.push(setting);
+        } else {
+          setting.value = String(dto[prop]);
+        }
+      }
+    }
+
+    // Sync to MongoDB if connected
+    try {
+      if (mongoose.connection?.db) {
+        for (const s of this.dataStore.systemSettings.filter((st) => st.key.startsWith('contact_'))) {
+          await mongoose.connection.db.collection('system_settings').replaceOne({ key: s.key }, s, { upsert: true });
+        }
+      }
+    } catch (err: any) {
+      this.logger.warn(`Could not sync updated contact settings to MongoDB: ${err.message}`);
+    }
+
+    this.logger.log('National Headquarters and Contact Info updated successfully by Super Admin.');
+    return {
+      success: true,
+      message: 'Headquarters and Contact details updated successfully!',
+      contactInfo: await this.getContactInfo(),
+    };
+  }
+
   async updateSetting(key: string, value: any) {
     let setting = this.dataStore.systemSettings.find((s) => s.key === key);
     if (!setting) {
