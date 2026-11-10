@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { Controller, Get, Post, Put, Body, Param, UseGuards } from '@nestjs/common';
+=======
+import { Controller, Get, UseGuards } from '@nestjs/common';
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
 import { AdminService } from './admin.service';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
@@ -20,6 +24,7 @@ export class AdminController {
   getReports() {
     return this.adminService.getReports();
   }
+<<<<<<< HEAD
 
   @Get('enquiries')
   getEnquiries() {
@@ -41,4 +46,6 @@ export class AdminController {
   updateOperationsPermissions(@Body() body: any) {
     return this.adminService.updateOperationsPermissions(body);
   }
+=======
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
 }

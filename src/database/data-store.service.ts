@@ -6,7 +6,10 @@ import { EventStatus } from '../schemas/event.schema';
 import { AssignmentStatus } from '../schemas/assignment.schema';
 import { SubscriptionStatus } from '../schemas/subscription.schema';
 import { PaymentStatus } from '../schemas/payment.schema';
+<<<<<<< HEAD
 import { WelfareClaimCategory, WelfareClaimStatus } from '../schemas/wallet.schema';
+=======
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
 
 import * as mongoose from 'mongoose';
 
@@ -28,6 +31,7 @@ export class DataStoreService implements OnModuleInit {
   public earnings: any[] = [];
   public wallets: any[] = [];
   public walletTransactions: any[] = [];
+<<<<<<< HEAD
   public welfareClaims: any[] = [];
   public notifications: any[] = [];
   public systemSettings: any[] = [];
@@ -46,6 +50,11 @@ export class DataStoreService implements OnModuleInit {
     canViewFinancials: false,
     canApproveProviders: false,
   };
+=======
+  public notifications: any[] = [];
+  public systemSettings: any[] = [];
+  public auditLogs: any[] = [];
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
 
   async onModuleInit() {
     this.logger.log('Initializing Sri Anvaya Data Store & Seed Registry...');
@@ -500,6 +509,7 @@ export class DataStoreService implements OnModuleInit {
 
     this.wallets.push(wal1, wal2, wal3, wal4);
 
+<<<<<<< HEAD
     // 9b. Initial Welfare Claims
     this.welfareClaims.push(
       {
@@ -551,6 +561,8 @@ export class DataStoreService implements OnModuleInit {
       },
     );
 
+=======
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
     // 10. Events
     const event1 = {
       _id: 'evt_1',
@@ -559,7 +571,11 @@ export class DataStoreService implements OnModuleInit {
       planId: planStandard._id,
       title: 'Annual Sradham - Late Sri V. Subramania Sharma',
       scheduledDate: new Date('2026-09-24T07:30:00Z'),
+<<<<<<< HEAD
       status: EventStatus.PLANNING,
+=======
+      status: EventStatus.PROVIDER_ASSIGNMENT,
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
       location: {
         venueType: 'HOME',
         address: 'Flat 4B, Heritage Towers, 12th Cross Road, Mylapore',
@@ -567,12 +583,25 @@ export class DataStoreService implements OnModuleInit {
         pincode: '600004',
         notes: 'Ground floor visitor parking available. Lift to 4th floor.',
       },
+<<<<<<< HEAD
       assignedTeam: {},
+=======
+      assignedTeam: {
+        purohithId: prov1._id,
+        swamigal1Id: prov2._id,
+        swamigal2Id: prov3._id,
+        cookId: prov4._id,
+      },
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
       checklist: [
         { item: 'Customer Tithi Confirmation', isCompleted: true, completedAt: new Date() },
         { item: 'Venue Address & Timings Verified', isCompleted: true, completedAt: new Date() },
         { item: 'Subscription & Payment Verified', isCompleted: true, completedAt: new Date() },
+<<<<<<< HEAD
         { item: 'Vedic Vadhyar & Swamigals Assigned', isCompleted: false },
+=======
+        { item: 'Vedic Vadhyar & Swamigals Assigned', isCompleted: true, completedAt: new Date() },
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
         { item: 'Samagri Kit Dispatched', isCompleted: false },
         { item: 'Provider On-Site Arrival Checked', isCompleted: false },
         { item: 'Pinda Pradanam & Homam Completed', isCompleted: false },
@@ -587,8 +616,61 @@ export class DataStoreService implements OnModuleInit {
 
     this.events.push(event1);
 
+<<<<<<< HEAD
     // 11. Provider Assignments (Empty initially until Admin assigns them)
     // this.assignments.push();
+=======
+    // 11. Provider Assignments for Event 1
+    const asg1 = {
+      _id: 'asg_1',
+      eventId: event1._id,
+      providerId: prov1._id,
+      roleInEvent: 'PUROHITH',
+      status: AssignmentStatus.ACCEPTED,
+      assignedAt: new Date('2026-08-20'),
+      respondedAt: new Date('2026-08-21'),
+      grossRemuneration: 3500,
+      createdAt: new Date(),
+    };
+
+    const asg2 = {
+      _id: 'asg_2',
+      eventId: event1._id,
+      providerId: prov2._id,
+      roleInEvent: 'SWAMIGAL_1',
+      status: AssignmentStatus.ACCEPTED,
+      assignedAt: new Date('2026-08-20'),
+      respondedAt: new Date('2026-08-21'),
+      grossRemuneration: 2500,
+      createdAt: new Date(),
+    };
+
+    const asg3 = {
+      _id: 'asg_3',
+      eventId: event1._id,
+      providerId: prov3._id,
+      roleInEvent: 'SWAMIGAL_2',
+      status: AssignmentStatus.ACCEPTED,
+      assignedAt: new Date('2026-08-20'),
+      respondedAt: new Date('2026-08-22'),
+      grossRemuneration: 2500,
+      createdAt: new Date(),
+    };
+
+    const asg4 = {
+      _id: 'asg_4',
+      eventId: event1._id,
+      providerId: prov4._id,
+      roleInEvent: 'COOK',
+      status: AssignmentStatus.ACCEPTED,
+      assignedAt: new Date('2026-08-20'),
+      respondedAt: new Date('2026-08-21'),
+      grossRemuneration: 3000,
+      createdAt: new Date(),
+    };
+
+    this.assignments.push(asg1, asg2, asg3, asg4);
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
 
     // 12. System Settings
     this.systemSettings.push(
@@ -638,6 +720,7 @@ export class DataStoreService implements OnModuleInit {
       }
     );
 
+<<<<<<< HEAD
     // 15. General Enquiries & Chatbot Inquiries
     this.enquiries.push(
       {
@@ -664,6 +747,8 @@ export class DataStoreService implements OnModuleInit {
       }
     );
 
+=======
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
     this.logger.log(`Data store seeded with ${this.users.length} Users, ${this.customers.length} Customers, ${this.events.length} Events, ${this.providers.length} Providers.`);
   }
 }

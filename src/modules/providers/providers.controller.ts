@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Controller, Get, Put, Post, Delete, Body, Param, Query, UseGuards } from '@nestjs/common';
 import { ProvidersService } from './providers.service';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
@@ -5,6 +6,12 @@ import { CurrentUser } from '../../common/decorators/current-user.decorator';
 import { RolesGuard } from '../../common/guards/roles.guard';
 import { Roles } from '../../common/decorators/roles.decorator';
 import { UserRole } from '../../schemas/user.schema';
+=======
+import { Controller, Get, Put, Body, Query, UseGuards } from '@nestjs/common';
+import { ProvidersService } from './providers.service';
+import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
+import { CurrentUser } from '../../common/decorators/current-user.decorator';
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
 import { ProviderRole } from '../../schemas/provider.schema';
 
 @Controller('providers')
@@ -22,11 +29,14 @@ export class ProvidersController {
     return this.providersService.getProviderProfile(user.userId);
   }
 
+<<<<<<< HEAD
   @Put('profile')
   updateProviderProfile(@CurrentUser() user: any, @Body() body: any) {
     return this.providersService.updateProviderProfile(user.userId, body);
   }
 
+=======
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
   @Put('availability')
   updateAvailability(
     @CurrentUser() user: any,
@@ -34,6 +44,7 @@ export class ProvidersController {
   ) {
     return this.providersService.updateAvailability(user.userId, body.isAvailable, body.unavailableDates);
   }
+<<<<<<< HEAD
 
   // 1. Provider Books His Own Work
   @Post('works/book')
@@ -109,4 +120,6 @@ export class ProvidersController {
   ) {
     return this.providersService.updateProviderStatus(id, body.status, body.notes);
   }
+=======
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
 }

@@ -92,6 +92,7 @@ export class AdminService {
       },
     };
   }
+<<<<<<< HEAD
 
   async getEnquiries() {
     return (this.dataStore.enquiries || []).sort(
@@ -157,4 +158,6 @@ export class AdminService {
     };
     return { success: true, permissions: this.dataStore.operationsPermissions };
   }
+=======
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
 }

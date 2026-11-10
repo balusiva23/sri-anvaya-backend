@@ -8,7 +8,10 @@ export enum EventStatus {
   UPCOMING = 'UPCOMING',
   CONFIRMATION_REQUIRED = 'CONFIRMATION_REQUIRED',
   PROVIDER_ASSIGNMENT = 'PROVIDER_ASSIGNMENT',
+<<<<<<< HEAD
   ASSIGNED = 'ASSIGNED',
+=======
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
   READY = 'READY',
   EVENT_DAY = 'EVENT_DAY',
   COMPLETED = 'COMPLETED',
@@ -60,6 +63,7 @@ export class Event {
     completedBy?: string;
   }>;
 
+<<<<<<< HEAD
   @Prop({ type: Array, default: [] })
   milestones: Array<{
     id: string;
@@ -70,6 +74,8 @@ export class Event {
     completedBy?: string;
   }>;
 
+=======
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
   @Prop()
   samagriKitProvided?: boolean;
 

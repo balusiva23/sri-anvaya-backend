@@ -7,6 +7,7 @@ export class NotificationsService {
   constructor(private readonly dataStore: DataStoreService) {}
 
   async getMyNotifications(userId: string) {
+<<<<<<< HEAD
     const provider = this.dataStore.providers.find((p) => p.userId === userId);
     if (provider) {
       // Find upcoming works in the next 7 days for this provider
@@ -41,6 +42,8 @@ export class NotificationsService {
         }
       }
     }
+=======
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
     return this.dataStore.notifications.filter((n) => n.userId === userId || !n.userId);
   }
 
@@ -50,6 +53,7 @@ export class NotificationsService {
     return { success: true };
   }
 
+<<<<<<< HEAD
   async markAllAsRead(userId: string) {
     this.dataStore.notifications.forEach((n) => {
       if (n.userId === userId || !n.userId) {
@@ -59,6 +63,8 @@ export class NotificationsService {
     return { success: true };
   }
 
+=======
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
   async sendNotification(data: {
     userId?: string;
     channel: NotificationChannel;

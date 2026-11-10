@@ -69,6 +69,7 @@ export class PitruService {
     return newRecord;
   }
 
+<<<<<<< HEAD
   async updatePitruRecord(user: any, id: string, data: any) {
     const isAdmin = user.roles?.some((r: string) => ['SUPER_ADMIN', 'ADMIN', 'OPERATIONS'].includes(r));
     let record: any = null;
@@ -125,5 +126,27 @@ export class PitruService {
     this.dataStore.events = this.dataStore.events.filter((e) => e.pitruRecordId !== id);
 
     return { success: true, message: 'Pitru record removed successfully' };
+=======
+  async updatePitruRecord(userId: string, id: string, data: any) {
+    const customer = this.dataStore.customers.find((c) => c.userId === userId);
+    if (!customer) throw new NotFoundException('Customer not found');
+
+    const record = this.dataStore.pitruRecords.find((p) => p._id === id && p.customerId === customer._id);
+    if (!record) throw new NotFoundException('Pitru record not found');
+
+    Object.assign(record, data);
+    return record;
+  }
+
+  async deletePitruRecord(userId: string, id: string) {
+    const customer = this.dataStore.customers.find((c) => c.userId === userId);
+    if (!customer) throw new NotFoundException('Customer not found');
+
+    const idx = this.dataStore.pitruRecords.findIndex((p) => p._id === id && p.customerId === customer._id);
+    if (idx === -1) throw new NotFoundException('Pitru record not found');
+
+    this.dataStore.pitruRecords.splice(idx, 1);
+    return { success: true, message: 'Pitru record removed' };
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
   }
 }

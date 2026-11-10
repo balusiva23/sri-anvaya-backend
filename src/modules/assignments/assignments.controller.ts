@@ -23,10 +23,17 @@ export class AssignmentsController {
     @Body() body: {
       eventId: string;
       team: {
+<<<<<<< HEAD
         purohithId?: string;
         swamigal1Id?: string;
         swamigal2Id?: string;
         cookId?: string;
+=======
+        purohithId: string;
+        swamigal1Id: string;
+        swamigal2Id: string;
+        cookId: string;
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
       };
     },
   ) {

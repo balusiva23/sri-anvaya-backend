@@ -11,17 +11,29 @@ export class EventsService {
     if (!customer) return [];
     return this.dataStore.events
       .filter((e) => e.customerId === customer._id)
+<<<<<<< HEAD
       .map((e) => this.enrichEvent(e, true));
   }
 
   async getAllEvents() {
     return this.dataStore.events.map((e) => this.enrichEvent(e, false));
+=======
+      .map((e) => this.enrichEvent(e));
+  }
+
+  async getAllEvents() {
+    return this.dataStore.events.map((e) => this.enrichEvent(e));
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
   }
 
   async getEventById(id: string) {
     const event = this.dataStore.events.find((e) => e._id === id);
     if (!event) throw new NotFoundException('Event not found');
+<<<<<<< HEAD
     return this.enrichEvent(event, false);
+=======
+    return this.enrichEvent(event);
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
   }
 
   async updateEventStatus(id: string, status: EventStatus) {
@@ -30,6 +42,7 @@ export class EventsService {
     event.status = status;
     if (status === EventStatus.COMPLETED) {
       event.completedAt = new Date();
+<<<<<<< HEAD
       // Auto-complete all milestones
       if (event.milestones) {
         event.milestones.forEach((m: any) => {
@@ -39,6 +52,10 @@ export class EventsService {
       }
     }
     return this.enrichEvent(event, false);
+=======
+    }
+    return this.enrichEvent(event);
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
   }
 
   async updateChecklist(id: string, itemIndex: number, isCompleted: boolean) {
@@ -48,6 +65,7 @@ export class EventsService {
       event.checklist[itemIndex].isCompleted = isCompleted;
       event.checklist[itemIndex].completedAt = isCompleted ? new Date() : null;
     }
+<<<<<<< HEAD
     return this.enrichEvent(event, false);
   }
 
@@ -146,6 +164,12 @@ export class EventsService {
   }
 
   private enrichEvent(e: any, isCustomerView: boolean = false) {
+=======
+    return this.enrichEvent(event);
+  }
+
+  private enrichEvent(e: any) {
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
     const customer = this.dataStore.customers.find((c) => c._id === e.customerId);
     const pitruRecord = this.dataStore.pitruRecords.find((p) => p._id === e.pitruRecordId);
     const plan = this.dataStore.plans.find((p) => p._id === e.planId);
@@ -165,6 +189,7 @@ export class EventsService {
       assignedTeamDetails.cook = this.dataStore.providers.find((p) => p._id === e.assignedTeam.cookId);
     }
 
+<<<<<<< HEAD
     // Ensure milestones exist
     if (!e.milestones || !Array.isArray(e.milestones) || e.milestones.length === 0) {
       e.milestones = this.getDefaultMilestones(e);
@@ -239,12 +264,19 @@ export class EventsService {
     return {
       ...e,
       category,
+=======
+    return {
+      ...e,
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
       customer,
       pitruRecord,
       plan,
       assignments,
       assignedTeamDetails,
+<<<<<<< HEAD
       customerProgress,
+=======
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
     };
   }
 }

@@ -12,6 +12,7 @@ export class Family {
   gothram?: string;
 
   @Prop()
+<<<<<<< HEAD
   fatherGothram?: string;
 
   @Prop()
@@ -47,11 +48,14 @@ export class Family {
   suthram?: string;
 
   @Prop()
+=======
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
   kuladeivam?: string;
 
   @Prop()
   nativePlace?: string;
 
+<<<<<<< HEAD
   @Prop({ type: Object, default: {} })
   fatherTharpanam?: {
     masa?: string;
@@ -90,6 +94,8 @@ export class Family {
     notes?: string;
   }>;
 
+=======
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
   @Prop({ type: Array, default: [] })
   members: Array<{
     id: string;

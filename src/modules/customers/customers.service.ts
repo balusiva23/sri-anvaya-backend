@@ -25,6 +25,7 @@ export class CustomersService {
     const pitruRecords = this.dataStore.pitruRecords.filter((p) => p.customerId === customer._id);
     const subscription = this.dataStore.subscriptions.find((s) => s.customerId === customer._id && s.status === 'ACTIVE');
     const plan = subscription ? this.dataStore.plans.find((p) => p._id === subscription.planId) : null;
+<<<<<<< HEAD
     const upcomingEvents = this.dataStore.events
       .filter((e) => e.customerId === customer._id)
       .map((e) => {
@@ -46,6 +47,9 @@ export class CustomersService {
           assignedTeamDetails,
         };
       });
+=======
+    const upcomingEvents = this.dataStore.events.filter((e) => e.customerId === customer._id);
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
 
     return {
       customer,
@@ -72,6 +76,7 @@ export class CustomersService {
     }
 
     Object.assign(customer, updateDto);
+<<<<<<< HEAD
 
     const user = this.dataStore.users.find((u) => u._id === userId);
     if (user) {
@@ -91,6 +96,9 @@ export class CustomersService {
           }
         : null,
     };
+=======
+    return customer;
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
   }
 
   async updateOnboarding(userId: string, data: { step: number; payload: any }) {
@@ -126,6 +134,7 @@ export class CustomersService {
             _id: `fam_${Date.now()}`,
             customerId: customer._id,
             gothram: data.payload.family.gothram || 'Koundinya Gothram',
+<<<<<<< HEAD
             fatherGothram: data.payload.family.fatherGothram || data.payload.family.gothram || 'Koundinya Gothram',
             motherGothram: data.payload.family.motherGothram || '',
             pitruChart: data.payload.family.pitruChart || {},
@@ -139,12 +148,23 @@ export class CustomersService {
             fatherLineage: data.payload.family.fatherLineage || [],
             motherLineage: data.payload.family.motherLineage || [],
             maternalGrandmotherLineage: data.payload.family.maternalGrandmotherLineage || [],
+=======
+            kuladeivam: data.payload.family.kuladeivam || '',
+            nativePlace: data.payload.family.nativePlace || '',
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
             members: data.payload.family.members || [],
             createdAt: new Date(),
           };
           this.dataStore.families.push(family);
         } else {
+<<<<<<< HEAD
           Object.assign(family, data.payload.family);
+=======
+          if (data.payload.family.gothram) family.gothram = data.payload.family.gothram;
+          if (data.payload.family.kuladeivam) family.kuladeivam = data.payload.family.kuladeivam;
+          if (data.payload.family.nativePlace) family.nativePlace = data.payload.family.nativePlace;
+          if (data.payload.family.members) family.members = data.payload.family.members;
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
         }
       }
 
@@ -271,7 +291,11 @@ export class CustomersService {
         return true;
       });
 
+<<<<<<< HEAD
       if (data.step >= 6) {
+=======
+      if (data.step >= 7) {
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
         customer.isProfileComplete = true;
       }
     }
@@ -300,6 +324,7 @@ export class CustomersService {
     const user = this.dataStore.users.find((u) => u._id === customer.userId);
     const family = this.dataStore.families.find((f) => f.customerId === customer._id);
     const pitruRecords = this.dataStore.pitruRecords.filter((p) => p.customerId === customer._id);
+<<<<<<< HEAD
     const subscriptions = this.dataStore.subscriptions.filter((s) => s.customerId === customer._id).map((s) => {
       const plan = this.dataStore.plans.find((p) => p._id === s.planId);
       return { ...s, plan };
@@ -434,4 +459,19 @@ export class CustomersService {
 
     return { success: true, message: `Customer ${customer.fullName} deleted successfully.` };
   }
+=======
+    const subscriptions = this.dataStore.subscriptions.filter((s) => s.customerId === customer._id);
+    const payments = this.dataStore.payments.filter((p) => p.customerId === customer._id);
+    const events = this.dataStore.events.filter((e) => e.customerId === customer._id);
+
+    return {
+      customer: { ...customer, email: user?.email },
+      family,
+      pitruRecords,
+      subscriptions,
+      payments,
+      events,
+    };
+  }
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
 }

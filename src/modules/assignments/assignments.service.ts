@@ -27,14 +27,22 @@ export class AssignmentsService {
   }
 
   async assignTeam(eventId: string, team: {
+<<<<<<< HEAD
     purohithId?: string;
     swamigal1Id?: string;
     swamigal2Id?: string;
     cookId?: string;
+=======
+    purohithId: string;
+    swamigal1Id: string;
+    swamigal2Id: string;
+    cookId: string;
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
   }) {
     const event = this.dataStore.events.find((e) => e._id === eventId);
     if (!event) throw new NotFoundException('Event not found');
 
+<<<<<<< HEAD
     if (!event.assignedTeam) event.assignedTeam = {};
     if (team.purohithId !== undefined) event.assignedTeam.purohithId = team.purohithId;
     if (team.swamigal1Id !== undefined) event.assignedTeam.swamigal1Id = team.swamigal1Id;
@@ -82,6 +90,10 @@ export class AssignmentsService {
       ? `${event.location.address}, ${event.location.city || ''}`
       : customer?.address?.city || 'Customer Location';
     const eventRef = `EVT-${event._id.slice(-6).toUpperCase()}`;
+=======
+    event.assignedTeam = team;
+    event.status = EventStatus.PROVIDER_ASSIGNMENT;
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
 
     const teamEntries = [
       { providerId: team.purohithId, role: 'PUROHITH', gross: 3500 },
@@ -111,6 +123,7 @@ export class AssignmentsService {
       };
       this.dataStore.assignments.push(newAssignment);
 
+<<<<<<< HEAD
       // Requirement 18: Immediate notification with rich event details, scheduled date, location, reference & instructions
       const provider = this.dataStore.providers.find((p) => p._id === member.providerId);
       if (provider) {
@@ -121,6 +134,17 @@ export class AssignmentsService {
           category: 'ASSIGNMENT',
           title: `New Assignment: ${member.role} [${eventRef}]`,
           message: `You have been assigned as ${member.role} for ceremony '${event.title}' on ${new Date(event.scheduledDate).toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })} at ${locationStr}. Ref: ${eventRef}. Instructions: ${event.notes || 'Please arrive at customer location 30 minutes prior with sacred veshti and Angavastram.'}`,
+=======
+      // Notify provider
+      const provider = this.dataStore.providers.find((p) => p._id === member.providerId);
+      if (provider) {
+        this.dataStore.notifications.push({
+          _id: `notif_${Date.now()}_${Math.random().toString(36).substring(2, 5)}`,
+          userId: provider.userId,
+          channel: 'IN_APP',
+          title: `New Assignment: ${event.title}`,
+          message: `You have been assigned as ${member.role} for Sradham on ${new Date(event.scheduledDate).toLocaleDateString()}. Please confirm.`,
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
           status: 'DELIVERED',
           isRead: false,
           createdAt: new Date(),

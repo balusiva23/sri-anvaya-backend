@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   Controller,
   Get,
@@ -9,6 +10,9 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
+=======
+import { Controller, Get, Post, Body, UseGuards } from '@nestjs/common';
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
 import { WalletService } from './wallet.service';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
@@ -21,12 +25,16 @@ import { UserRole } from '../../schemas/user.schema';
 export class WalletController {
   constructor(private readonly walletService: WalletService) {}
 
+<<<<<<< HEAD
   // 1. Provider Wallet Summary, Ledger & Claims
+=======
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
   @Get('me')
   getMyWallet(@CurrentUser() user: any) {
     return this.walletService.getMyWallet(user.userId);
   }
 
+<<<<<<< HEAD
   // 2. Provider Applies for Welfare Claim
   @Post('claim')
   applyClaim(@CurrentUser() user: any, @Body() body: any) {
@@ -85,11 +93,19 @@ export class WalletController {
   @Get('admin/reconciliation')
   @UseGuards(RolesGuard)
   @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.FINANCE, UserRole.OPERATIONS)
+=======
+  @Get('admin/reconciliation')
+  @UseGuards(RolesGuard)
+  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.FINANCE)
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
   getAdminReconciliation() {
     return this.walletService.getAdminReconciliation();
   }
 
+<<<<<<< HEAD
   // 9. Admin Month-End Batch Consolidation
+=======
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
   @Post('admin/consolidate')
   @UseGuards(RolesGuard)
   @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.FINANCE)

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { DataStoreService } from '../../database/data-store.service';
 import {
@@ -5,6 +6,11 @@ import {
   WelfareClaimCategory,
   WelfareClaimStatus,
 } from '../../schemas/wallet.schema';
+=======
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { DataStoreService } from '../../database/data-store.service';
+import { WalletTxType } from '../../schemas/wallet.schema';
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
 
 @Injectable()
 export class WalletService {
@@ -28,6 +34,7 @@ export class WalletService {
       this.dataStore.wallets.push(wallet);
     }
 
+<<<<<<< HEAD
     const transactions = this.dataStore.walletTransactions
       .filter((t) => t.providerId === provider._id)
       .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
@@ -38,11 +45,17 @@ export class WalletService {
       .filter((c) => c.providerId === provider._id)
       .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
+=======
+    const transactions = this.dataStore.walletTransactions.filter((t) => t.providerId === provider._id);
+    const earnings = this.dataStore.earnings.filter((e) => e.providerId === provider._id);
+
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
     return {
       wallet,
       provider,
       transactions,
       earnings,
+<<<<<<< HEAD
       claims,
     };
   }
@@ -372,6 +385,8 @@ export class WalletService {
       claim,
       wallet,
       transaction: tx,
+=======
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
     };
   }
 

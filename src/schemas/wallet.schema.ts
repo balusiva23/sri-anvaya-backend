@@ -33,6 +33,7 @@ export enum WalletTxType {
   CREDIT_ALLOCATION = 'CREDIT_ALLOCATION',
   MONTH_END_PROTECTION_DISBURSEMENT = 'MONTH_END_PROTECTION_DISBURSEMENT',
   ADJUSTMENT = 'ADJUSTMENT',
+<<<<<<< HEAD
   CLAIM_DISBURSEMENT = 'CLAIM_DISBURSEMENT',
 }
 
@@ -119,6 +120,10 @@ export const WelfareClaimSchema = SchemaFactory.createForClass(WelfareClaim);
 WelfareClaimSchema.index({ providerId: 1 });
 WelfareClaimSchema.index({ status: 1 });
 
+=======
+}
+
+>>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
 @Schema({ timestamps: true })
 export class WalletTransaction {
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'WelfareWallet', required: true })
