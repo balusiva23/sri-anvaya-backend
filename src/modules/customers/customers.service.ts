@@ -25,31 +25,7 @@ export class CustomersService {
     const pitruRecords = this.dataStore.pitruRecords.filter((p) => p.customerId === customer._id);
     const subscription = this.dataStore.subscriptions.find((s) => s.customerId === customer._id && s.status === 'ACTIVE');
     const plan = subscription ? this.dataStore.plans.find((p) => p._id === subscription.planId) : null;
-<<<<<<< HEAD
-    const upcomingEvents = this.dataStore.events
-      .filter((e) => e.customerId === customer._id)
-      .map((e) => {
-        const assignedTeamDetails: any = {};
-        if (e.assignedTeam?.purohithId) {
-          assignedTeamDetails.purohith = this.dataStore.providers.find((p) => p._id === e.assignedTeam.purohithId);
-        }
-        if (e.assignedTeam?.swamigal1Id) {
-          assignedTeamDetails.swamigal1 = this.dataStore.providers.find((p) => p._id === e.assignedTeam.swamigal1Id);
-        }
-        if (e.assignedTeam?.swamigal2Id) {
-          assignedTeamDetails.swamigal2 = this.dataStore.providers.find((p) => p._id === e.assignedTeam.swamigal2Id);
-        }
-        if (e.assignedTeam?.cookId) {
-          assignedTeamDetails.cook = this.dataStore.providers.find((p) => p._id === e.assignedTeam.cookId);
-        }
-        return {
-          ...e,
-          assignedTeamDetails,
-        };
-      });
-=======
     const upcomingEvents = this.dataStore.events.filter((e) => e.customerId === customer._id);
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
 
     return {
       customer,
@@ -76,29 +52,7 @@ export class CustomersService {
     }
 
     Object.assign(customer, updateDto);
-<<<<<<< HEAD
-
-    const user = this.dataStore.users.find((u) => u._id === userId);
-    if (user) {
-      if (updateDto.fullName) user.fullName = updateDto.fullName.trim();
-      if (updateDto.phone) user.phone = updateDto.phone.trim();
-    }
-
-    return {
-      customer,
-      user: user
-        ? {
-            id: user._id,
-            email: user.email,
-            fullName: user.fullName,
-            phone: user.phone,
-            roles: user.roles,
-          }
-        : null,
-    };
-=======
     return customer;
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
   }
 
   async updateOnboarding(userId: string, data: { step: number; payload: any }) {
@@ -134,37 +88,17 @@ export class CustomersService {
             _id: `fam_${Date.now()}`,
             customerId: customer._id,
             gothram: data.payload.family.gothram || 'Koundinya Gothram',
-<<<<<<< HEAD
-            fatherGothram: data.payload.family.fatherGothram || data.payload.family.gothram || 'Koundinya Gothram',
-            motherGothram: data.payload.family.motherGothram || '',
-            pitruChart: data.payload.family.pitruChart || {},
-            acharyan: data.payload.family.acharyan || '',
-            vedham: data.payload.family.vedham || '',
-            suthram: data.payload.family.suthram || '',
             kuladeivam: data.payload.family.kuladeivam || '',
             nativePlace: data.payload.family.nativePlace || '',
-            fatherTharpanam: data.payload.family.fatherTharpanam || {},
-            motherTharpanam: data.payload.family.motherTharpanam || {},
-            fatherLineage: data.payload.family.fatherLineage || [],
-            motherLineage: data.payload.family.motherLineage || [],
-            maternalGrandmotherLineage: data.payload.family.maternalGrandmotherLineage || [],
-=======
-            kuladeivam: data.payload.family.kuladeivam || '',
-            nativePlace: data.payload.family.nativePlace || '',
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
             members: data.payload.family.members || [],
             createdAt: new Date(),
           };
           this.dataStore.families.push(family);
         } else {
-<<<<<<< HEAD
-          Object.assign(family, data.payload.family);
-=======
           if (data.payload.family.gothram) family.gothram = data.payload.family.gothram;
           if (data.payload.family.kuladeivam) family.kuladeivam = data.payload.family.kuladeivam;
           if (data.payload.family.nativePlace) family.nativePlace = data.payload.family.nativePlace;
           if (data.payload.family.members) family.members = data.payload.family.members;
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
         }
       }
 
@@ -291,11 +225,7 @@ export class CustomersService {
         return true;
       });
 
-<<<<<<< HEAD
-      if (data.step >= 6) {
-=======
       if (data.step >= 7) {
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
         customer.isProfileComplete = true;
       }
     }
@@ -324,142 +254,6 @@ export class CustomersService {
     const user = this.dataStore.users.find((u) => u._id === customer.userId);
     const family = this.dataStore.families.find((f) => f.customerId === customer._id);
     const pitruRecords = this.dataStore.pitruRecords.filter((p) => p.customerId === customer._id);
-<<<<<<< HEAD
-    const subscriptions = this.dataStore.subscriptions.filter((s) => s.customerId === customer._id).map((s) => {
-      const plan = this.dataStore.plans.find((p) => p._id === s.planId);
-      return { ...s, plan };
-    });
-    const payments = this.dataStore.payments
-      .filter((p) => p.customerId === customer._id)
-      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-    
-    const events = this.dataStore.events.filter((e) => e.customerId === customer._id).map((e) => {
-      const assignedTeamDetails: any = {};
-      if (e.assignedTeam?.purohithId) assignedTeamDetails.purohith = this.dataStore.providers.find((p) => p._id === e.assignedTeam.purohithId);
-      if (e.assignedTeam?.swamigal1Id) assignedTeamDetails.swamigal1 = this.dataStore.providers.find((p) => p._id === e.assignedTeam.swamigal1Id);
-      if (e.assignedTeam?.swamigal2Id) assignedTeamDetails.swamigal2 = this.dataStore.providers.find((p) => p._id === e.assignedTeam.swamigal2Id);
-      if (e.assignedTeam?.cookId) assignedTeamDetails.cook = this.dataStore.providers.find((p) => p._id === e.assignedTeam.cookId);
-      return { ...e, assignedTeamDetails };
-    });
-
-    const totalAmountPaid = payments
-      .filter((p) => p.status === 'SUCCESS')
-      .reduce((sum, p) => sum + (p.amount || 0), 0);
-
-    const activeSub = subscriptions.find((s) => s.status === 'ACTIVE');
-    const monthlyPrice = activeSub?.plan?.monthlyPrice || 0;
-    const outstandingPayments = Math.max(0, monthlyPrice > 0 && payments.length === 0 ? monthlyPrice : 0);
-
-    // Extract all assigned unique providers
-    const assignedProvidersMap = new Map();
-    events.forEach((ev) => {
-      if (ev.assignedTeamDetails?.purohith) assignedProvidersMap.set(ev.assignedTeamDetails.purohith._id, ev.assignedTeamDetails.purohith);
-      if (ev.assignedTeamDetails?.swamigal1) assignedProvidersMap.set(ev.assignedTeamDetails.swamigal1._id, ev.assignedTeamDetails.swamigal1);
-      if (ev.assignedTeamDetails?.swamigal2) assignedProvidersMap.set(ev.assignedTeamDetails.swamigal2._id, ev.assignedTeamDetails.swamigal2);
-      if (ev.assignedTeamDetails?.cook) assignedProvidersMap.set(ev.assignedTeamDetails.cook._id, ev.assignedTeamDetails.cook);
-    });
-    const assignedProviders = Array.from(assignedProvidersMap.values());
-
-    // Extract all milestones
-    const milestoneHistory: any[] = [];
-    events.forEach((ev) => {
-      if (ev.milestones && Array.isArray(ev.milestones)) {
-        ev.milestones.forEach((m: any) => {
-          milestoneHistory.push({
-            ...m,
-            eventTitle: ev.title,
-            eventId: ev._id,
-          });
-        });
-      }
-    });
-
-    // Communications / notifications
-    const communications = this.dataStore.notifications.filter(
-      (n) => n.userId === user?._id || n.recipientEmail === user?.email
-    );
-
-    // Enquiries
-    const enquiries = (this.dataStore.enquiries || []).filter(
-      (en: any) => en.email?.toLowerCase() === user?.email?.toLowerCase() || (user?.phone && en.phone?.includes(user.phone.slice(-10)))
-    );
-
-    const upcomingDates = events
-      .filter((e) => new Date(e.scheduledDate).getTime() >= Date.now())
-      .sort((a, b) => new Date(a.scheduledDate).getTime() - new Date(b.scheduledDate).getTime());
-
-    return {
-      customer: { ...customer, email: user?.email },
-      user,
-      family,
-      pitruRecords,
-      subscriptions,
-      activeSubscription: activeSub,
-      payments,
-      totalAmountPaid,
-      outstandingPayments,
-      events,
-      upcomingDates,
-      assignedProviders,
-      milestoneHistory,
-      communications,
-      enquiries,
-    };
-  }
-
-  async updateCustomerAdmin(id: string, updateDto: any) {
-    const customer = this.dataStore.customers.find((c) => c._id === id);
-    if (!customer) throw new NotFoundException('Customer not found');
-
-    if (updateDto.fullName) customer.fullName = updateDto.fullName;
-    if (updateDto.phone) customer.phone = updateDto.phone;
-    if (updateDto.altPhone !== undefined) customer.altPhone = updateDto.altPhone;
-    if (updateDto.serviceCity) customer.serviceCity = updateDto.serviceCity;
-    if (updateDto.address) customer.address = { ...customer.address, ...updateDto.address };
-    if (updateDto.preferences) customer.preferences = updateDto.preferences;
-
-    // Update user if needed
-    const user = this.dataStore.users.find((u) => u._id === customer.userId);
-    if (user) {
-      if (updateDto.fullName) user.fullName = updateDto.fullName;
-      if (updateDto.phone) user.phone = updateDto.phone;
-      if (updateDto.email) user.email = updateDto.email.toLowerCase().trim();
-    }
-
-    // Update family if lineage is provided
-    if (updateDto.family) {
-      let family = this.dataStore.families.find((f) => f.customerId === customer._id);
-      if (family) {
-        Object.assign(family, updateDto.family);
-      }
-    }
-
-    return { success: true, customer };
-  }
-
-  async deleteCustomerAdmin(id: string) {
-    const custIdx = this.dataStore.customers.findIndex((c) => c._id === id);
-    if (custIdx === -1) throw new NotFoundException('Customer not found');
-
-    const customer = this.dataStore.customers[custIdx];
-    this.dataStore.customers.splice(custIdx, 1);
-
-    // Cleanup linked entities
-    this.dataStore.families = this.dataStore.families.filter((f) => f.customerId !== id);
-    this.dataStore.pitruRecords = this.dataStore.pitruRecords.filter((p) => p.customerId !== id);
-    this.dataStore.subscriptions = this.dataStore.subscriptions.filter((s) => s.customerId !== id);
-    this.dataStore.payments = this.dataStore.payments.filter((p) => p.customerId !== id);
-    this.dataStore.events = this.dataStore.events.filter((e) => e.customerId !== id);
-
-    // Inactivate user
-    const user = this.dataStore.users.find((u) => u._id === customer.userId);
-    if (user) {
-      user.isActive = false;
-    }
-
-    return { success: true, message: `Customer ${customer.fullName} deleted successfully.` };
-  }
-=======
     const subscriptions = this.dataStore.subscriptions.filter((s) => s.customerId === customer._id);
     const payments = this.dataStore.payments.filter((p) => p.customerId === customer._id);
     const events = this.dataStore.events.filter((e) => e.customerId === customer._id);
@@ -473,5 +267,4 @@ export class CustomersService {
       events,
     };
   }
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
 }

@@ -36,11 +36,7 @@ export class Provider {
   @Prop({ type: [String], default: [] })
   serviceLocations: string[];
 
-<<<<<<< HEAD
-  @Prop({ type: String, enum: ProviderVerificationStatus, default: ProviderVerificationStatus.PENDING })
-=======
   @Prop({ type: String, enum: ProviderVerificationStatus, default: ProviderVerificationStatus.VERIFIED })
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
   verificationStatus: ProviderVerificationStatus;
 
   @Prop({ default: 4.9 })

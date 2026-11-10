@@ -17,11 +17,7 @@ export class RolesGuard implements CanActivate {
     }
     const { user } = context.switchToHttp().getRequest();
     if (!user || !user.roles) {
-<<<<<<< HEAD
-      throw new ForbiddenException("Oops... You're not allowed to be here!");
-=======
       throw new ForbiddenException('User does not have necessary permissions');
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
     }
     
     // SUPER_ADMIN has access to everything
@@ -31,11 +27,7 @@ export class RolesGuard implements CanActivate {
 
     const hasRole = requiredRoles.some((role) => user.roles?.includes(role));
     if (!hasRole) {
-<<<<<<< HEAD
-      throw new ForbiddenException("Oops... You're not allowed to be here!");
-=======
       throw new ForbiddenException('Access denied for user role');
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
     }
     return true;
   }

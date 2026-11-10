@@ -69,64 +69,6 @@ export class PitruService {
     return newRecord;
   }
 
-<<<<<<< HEAD
-  async updatePitruRecord(user: any, id: string, data: any) {
-    const isAdmin = user.roles?.some((r: string) => ['SUPER_ADMIN', 'ADMIN', 'OPERATIONS'].includes(r));
-    let record: any = null;
-
-    if (isAdmin) {
-      record = this.dataStore.pitruRecords.find((p) => p._id === id);
-    } else {
-      const customer = this.dataStore.customers.find((c) => c.userId === user.userId);
-      if (!customer) throw new NotFoundException('Customer not found');
-      record = this.dataStore.pitruRecords.find((p) => p._id === id && p.customerId === customer._id);
-    }
-
-    if (!record) throw new NotFoundException('Pitru record not found');
-
-    if (data.pitruName !== undefined) record.pitruName = data.pitruName;
-    if (data.relationship !== undefined) record.relationship = data.relationship;
-    if (data.calendarType !== undefined) record.calendarType = data.calendarType;
-    if (data.masa !== undefined) record.masa = data.masa;
-    if (data.paksha !== undefined) record.paksha = data.paksha;
-    if (data.tithi !== undefined) record.tithi = data.tithi;
-    if (data.nakshatra !== undefined) record.nakshatra = data.nakshatra;
-    if (data.annualDateNotes !== undefined) record.annualDateNotes = data.annualDateNotes;
-    if (data.notes !== undefined) record.notes = data.notes;
-    if (data.englishDate) {
-      record.englishDate = new Date(data.englishDate);
-    }
-
-    // Also sync linked event
-    const linkedEvent = this.dataStore.events.find((e) => e.pitruRecordId === id);
-    if (linkedEvent) {
-      if (record.pitruName) linkedEvent.title = `Annual Sradham - ${record.pitruName}`;
-      if (record.englishDate) linkedEvent.scheduledDate = record.englishDate;
-      if (record.notes) linkedEvent.notes = record.notes;
-    }
-
-    return record;
-  }
-
-  async deletePitruRecord(user: any, id: string) {
-    const isAdmin = user.roles?.some((r: string) => ['SUPER_ADMIN', 'ADMIN', 'OPERATIONS'].includes(r));
-    let idx = -1;
-
-    if (isAdmin) {
-      idx = this.dataStore.pitruRecords.findIndex((p) => p._id === id);
-    } else {
-      const customer = this.dataStore.customers.find((c) => c.userId === user.userId);
-      if (!customer) throw new NotFoundException('Customer not found');
-      idx = this.dataStore.pitruRecords.findIndex((p) => p._id === id && p.customerId === customer._id);
-    }
-
-    if (idx === -1) throw new NotFoundException('Pitru record not found');
-
-    this.dataStore.pitruRecords.splice(idx, 1);
-    this.dataStore.events = this.dataStore.events.filter((e) => e.pitruRecordId !== id);
-
-    return { success: true, message: 'Pitru record removed successfully' };
-=======
   async updatePitruRecord(userId: string, id: string, data: any) {
     const customer = this.dataStore.customers.find((c) => c.userId === userId);
     if (!customer) throw new NotFoundException('Customer not found');
@@ -147,6 +89,5 @@ export class PitruService {
 
     this.dataStore.pitruRecords.splice(idx, 1);
     return { success: true, message: 'Pitru record removed' };
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
   }
 }

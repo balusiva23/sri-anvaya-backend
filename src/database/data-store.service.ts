@@ -6,10 +6,6 @@ import { EventStatus } from '../schemas/event.schema';
 import { AssignmentStatus } from '../schemas/assignment.schema';
 import { SubscriptionStatus } from '../schemas/subscription.schema';
 import { PaymentStatus } from '../schemas/payment.schema';
-<<<<<<< HEAD
-import { WelfareClaimCategory, WelfareClaimStatus } from '../schemas/wallet.schema';
-=======
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
 
 import * as mongoose from 'mongoose';
 
@@ -31,30 +27,9 @@ export class DataStoreService implements OnModuleInit {
   public earnings: any[] = [];
   public wallets: any[] = [];
   public walletTransactions: any[] = [];
-<<<<<<< HEAD
-  public welfareClaims: any[] = [];
   public notifications: any[] = [];
   public systemSettings: any[] = [];
   public auditLogs: any[] = [];
-  public enquiries: any[] = [];
-  public operationsPermissions: {
-    allowedTabs: string[];
-    canAssignProviders: boolean;
-    canEditCustomers: boolean;
-    canViewFinancials: boolean;
-    canApproveProviders: boolean;
-  } = {
-    allowedTabs: ['dashboard', 'customers', 'events', 'providers', 'communications', 'enquiries'],
-    canAssignProviders: true,
-    canEditCustomers: true,
-    canViewFinancials: false,
-    canApproveProviders: false,
-  };
-=======
-  public notifications: any[] = [];
-  public systemSettings: any[] = [];
-  public auditLogs: any[] = [];
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
 
   async onModuleInit() {
     this.logger.log('Initializing Sri Anvaya Data Store & Seed Registry...');
@@ -509,60 +484,6 @@ export class DataStoreService implements OnModuleInit {
 
     this.wallets.push(wal1, wal2, wal3, wal4);
 
-<<<<<<< HEAD
-    // 9b. Initial Welfare Claims
-    this.welfareClaims.push(
-      {
-        _id: 'clm_1',
-        claimNumber: 'CLM-2026-001',
-        providerId: prov1._id,
-        providerName: prov1.fullName,
-        providerPhone: prov1.phone,
-        walletId: wal1._id,
-        category: WelfareClaimCategory.HEALTH_MEDICAL,
-        title: 'Ayurvedic Treatment & Diagnostic Reimbursement',
-        amount: 4500,
-        reason: 'Post-event exhaustion & knee joint Ayurvedic treatment at Arya Vaidya Sala Kottakkal.',
-        hospitalOrInstituteName: 'Arya Vaidya Sala Kottakkal (Chennai Branch)',
-        bankDetails: {
-          accountNumber: 'XXXXXX9821',
-          ifscCode: 'HDFC0000124',
-          accountHolderName: 'Krishna Vadhyar',
-          upiId: 'krishna.vadhyar@okaxis',
-        },
-        supportingDocsNotes: 'Bills and prescription submitted. Bill ref #AVS-2026-8812',
-        status: WelfareClaimStatus.APPROVED,
-        adminNotes: 'Verified medical diagnosis and official bill. Approved for welfare payout.',
-        reviewedBy: 'Sri Anvaya Administrator',
-        reviewedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
-        createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
-        updatedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
-      },
-      {
-        _id: 'clm_2',
-        claimNumber: 'CLM-2026-002',
-        providerId: prov2._id,
-        providerName: prov2.fullName,
-        providerPhone: prov2.phone,
-        walletId: wal2._id,
-        category: WelfareClaimCategory.CHILD_EDUCATION,
-        title: "Son's Veda Patashala Semester & Book Fees",
-        amount: 6000,
-        reason: 'Support for Shukla Yajur Veda Kramam study at Tirupati Veda Pathashala.',
-        hospitalOrInstituteName: 'Sri Venkateswara Veda Patashala',
-        bankDetails: {
-          upiId: 'ramaswamy.shastri@oksbi',
-          accountHolderName: 'Ramaswamy Shastrigal',
-        },
-        supportingDocsNotes: 'Admission slip and fee challan attached.',
-        status: WelfareClaimStatus.PENDING,
-        createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
-        updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
-      },
-    );
-
-=======
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
     // 10. Events
     const event1 = {
       _id: 'evt_1',
@@ -571,11 +492,7 @@ export class DataStoreService implements OnModuleInit {
       planId: planStandard._id,
       title: 'Annual Sradham - Late Sri V. Subramania Sharma',
       scheduledDate: new Date('2026-09-24T07:30:00Z'),
-<<<<<<< HEAD
-      status: EventStatus.PLANNING,
-=======
       status: EventStatus.PROVIDER_ASSIGNMENT,
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
       location: {
         venueType: 'HOME',
         address: 'Flat 4B, Heritage Towers, 12th Cross Road, Mylapore',
@@ -583,25 +500,17 @@ export class DataStoreService implements OnModuleInit {
         pincode: '600004',
         notes: 'Ground floor visitor parking available. Lift to 4th floor.',
       },
-<<<<<<< HEAD
-      assignedTeam: {},
-=======
       assignedTeam: {
         purohithId: prov1._id,
         swamigal1Id: prov2._id,
         swamigal2Id: prov3._id,
         cookId: prov4._id,
       },
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
       checklist: [
         { item: 'Customer Tithi Confirmation', isCompleted: true, completedAt: new Date() },
         { item: 'Venue Address & Timings Verified', isCompleted: true, completedAt: new Date() },
         { item: 'Subscription & Payment Verified', isCompleted: true, completedAt: new Date() },
-<<<<<<< HEAD
-        { item: 'Vedic Vadhyar & Swamigals Assigned', isCompleted: false },
-=======
         { item: 'Vedic Vadhyar & Swamigals Assigned', isCompleted: true, completedAt: new Date() },
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
         { item: 'Samagri Kit Dispatched', isCompleted: false },
         { item: 'Provider On-Site Arrival Checked', isCompleted: false },
         { item: 'Pinda Pradanam & Homam Completed', isCompleted: false },
@@ -616,10 +525,6 @@ export class DataStoreService implements OnModuleInit {
 
     this.events.push(event1);
 
-<<<<<<< HEAD
-    // 11. Provider Assignments (Empty initially until Admin assigns them)
-    // this.assignments.push();
-=======
     // 11. Provider Assignments for Event 1
     const asg1 = {
       _id: 'asg_1',
@@ -670,7 +575,6 @@ export class DataStoreService implements OnModuleInit {
     };
 
     this.assignments.push(asg1, asg2, asg3, asg4);
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
 
     // 12. System Settings
     this.systemSettings.push(
@@ -720,35 +624,6 @@ export class DataStoreService implements OnModuleInit {
       }
     );
 
-<<<<<<< HEAD
-    // 15. General Enquiries & Chatbot Inquiries
-    this.enquiries.push(
-      {
-        _id: 'enq_1',
-        name: 'Raghavan Narayanan',
-        email: 'raghavan.n@example.com',
-        phone: '+91 98410 77665',
-        category: 'PLAN_QUERY',
-        planInterest: 'STANDARD',
-        message: 'Namaskaram, we reside in Bengaluru and want to know if Sradham 360 covers our Thithi according to Vadakalai tradition?',
-        status: 'NEW',
-        createdAt: new Date(Date.now() - 3600000 * 2),
-      },
-      {
-        _id: 'enq_2',
-        name: 'Srinivasan Parthasarathy',
-        email: 'partha.s@example.com',
-        phone: '+91 97909 33211',
-        category: 'CALLBACK_REQUEST',
-        planInterest: 'PREMIUM',
-        message: 'Please call me regarding NRI remote participation link for my brother in California during our pitru ceremony next month.',
-        status: 'RESOLVED',
-        createdAt: new Date(Date.now() - 86400000),
-      }
-    );
-
-=======
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
     this.logger.log(`Data store seeded with ${this.users.length} Users, ${this.customers.length} Customers, ${this.events.length} Events, ${this.providers.length} Providers.`);
   }
 }

@@ -92,15 +92,8 @@ export class AdminService {
       },
     };
   }
-<<<<<<< HEAD
 
-  async getEnquiries() {
-    return (this.dataStore.enquiries || []).sort(
-      (a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
-  }
-
-  async createEnquiry(dto: {
+  async createEnquiry(body: {
     name: string;
     email: string;
     phone?: string;
@@ -108,56 +101,33 @@ export class AdminService {
     category?: string;
     planInterest?: string;
   }) {
-    const newEnquiry = {
-      _id: `enq_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
-      name: dto.name?.trim(),
-      email: dto.email?.toLowerCase().trim(),
-      phone: dto.phone?.trim() || '',
-      category: dto.category || 'GENERAL_QUERY',
-      planInterest: dto.planInterest || 'STANDARD',
-      message: dto.message?.trim(),
+    const enquiry = {
+      _id: `enq_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+      name: body.name?.trim(),
+      email: body.email?.trim().toLowerCase(),
+      phone: body.phone?.trim() || '',
+      message: body.message?.trim(),
+      category: body.category || 'GENERAL',
+      planInterest: body.planInterest || '',
       status: 'NEW',
       createdAt: new Date(),
     };
 
-    if (!this.dataStore.enquiries) this.dataStore.enquiries = [];
-    this.dataStore.enquiries.unshift(newEnquiry);
-
-    // Requirement 21 & 22: Trigger Real-time notification for Admin
     this.dataStore.notifications.unshift({
-      _id: `notif_${Date.now()}_${Math.random().toString(36).substring(2, 5)}`,
-      userId: null,
+      _id: `notif_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+      userId: 'admin',
       channel: 'IN_APP',
-      category: 'GENERAL_ENQUIRY',
-      title: 'New General Enquiry Received',
-      message: `${newEnquiry.name} (${newEnquiry.email}, ${newEnquiry.phone || 'No phone'}) submitted an enquiry regarding ${newEnquiry.category}: "${newEnquiry.message?.slice(0, 80)}..."`,
+      category: 'GENERAL',
+      title: 'New Public Enquiry',
+      message: `${enquiry.name} submitted a new enquiry about ${enquiry.category}.`,
       status: 'DELIVERED',
       isRead: false,
       createdAt: new Date(),
     });
 
-    return { success: true, enquiry: newEnquiry };
-  }
-
-  async updateEnquiryStatus(id: string, status: string) {
-    const enquiry = (this.dataStore.enquiries || []).find((e: any) => e._id === id);
-    if (enquiry) {
-      enquiry.status = status;
-    }
-    return { success: true, enquiry };
-  }
-
-  async getOperationsPermissions() {
-    return this.dataStore.operationsPermissions;
-  }
-
-  async updateOperationsPermissions(dto: any) {
-    this.dataStore.operationsPermissions = {
-      ...this.dataStore.operationsPermissions,
-      ...dto,
+    return {
+      success: true,
+      enquiry,
     };
-    return { success: true, permissions: this.dataStore.operationsPermissions };
   }
-=======
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
 }

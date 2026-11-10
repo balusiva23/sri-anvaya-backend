@@ -27,73 +27,16 @@ export class AssignmentsService {
   }
 
   async assignTeam(eventId: string, team: {
-<<<<<<< HEAD
-    purohithId?: string;
-    swamigal1Id?: string;
-    swamigal2Id?: string;
-    cookId?: string;
-=======
     purohithId: string;
     swamigal1Id: string;
     swamigal2Id: string;
     cookId: string;
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
   }) {
     const event = this.dataStore.events.find((e) => e._id === eventId);
     if (!event) throw new NotFoundException('Event not found');
 
-<<<<<<< HEAD
-    if (!event.assignedTeam) event.assignedTeam = {};
-    if (team.purohithId !== undefined) event.assignedTeam.purohithId = team.purohithId;
-    if (team.swamigal1Id !== undefined) event.assignedTeam.swamigal1Id = team.swamigal1Id;
-    if (team.swamigal2Id !== undefined) event.assignedTeam.swamigal2Id = team.swamigal2Id;
-    if (team.cookId !== undefined) event.assignedTeam.cookId = team.cookId;
-
-    const allFourAssigned =
-      !!event.assignedTeam.purohithId &&
-      !!event.assignedTeam.swamigal1Id &&
-      !!event.assignedTeam.swamigal2Id &&
-      !!event.assignedTeam.cookId;
-
-    // Requirement 17: Once admin assigns all four providers, status automatically changes to Assigned
-    if (allFourAssigned) {
-      event.status = EventStatus.ASSIGNED;
-    } else {
-      event.status = EventStatus.PROVIDER_ASSIGNMENT;
-    }
-
-    const chk = event.checklist?.find((c: any) => c.item === 'Vedic Vadhyar & Swamigals Assigned');
-    if (chk) {
-      chk.isCompleted = true;
-      chk.completedAt = new Date();
-    }
-
-    // Update milestones
-    if (!event.milestones) event.milestones = [];
-    const existingM = event.milestones.find((m: any) => m.id === 'm_team_assigned');
-    if (existingM) {
-      existingM.status = allFourAssigned ? 'COMPLETED' : 'IN_PROGRESS';
-      existingM.timestamp = new Date();
-      existingM.remarks = allFourAssigned ? 'Full 4-member Vedic team assigned' : 'Partial team assignment in progress';
-    } else {
-      event.milestones.push({
-        id: 'm_team_assigned',
-        name: 'Vedic Team Assigned',
-        status: allFourAssigned ? 'COMPLETED' : 'IN_PROGRESS',
-        timestamp: new Date(),
-        remarks: allFourAssigned ? 'Full 4-member Vedic team assigned' : 'Partial team assignment in progress',
-      });
-    }
-
-    const customer = this.dataStore.customers.find((c) => c._id === event.customerId);
-    const locationStr = event.location?.address
-      ? `${event.location.address}, ${event.location.city || ''}`
-      : customer?.address?.city || 'Customer Location';
-    const eventRef = `EVT-${event._id.slice(-6).toUpperCase()}`;
-=======
     event.assignedTeam = team;
     event.status = EventStatus.PROVIDER_ASSIGNMENT;
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
 
     const teamEntries = [
       { providerId: team.purohithId, role: 'PUROHITH', gross: 3500 },
@@ -123,18 +66,6 @@ export class AssignmentsService {
       };
       this.dataStore.assignments.push(newAssignment);
 
-<<<<<<< HEAD
-      // Requirement 18: Immediate notification with rich event details, scheduled date, location, reference & instructions
-      const provider = this.dataStore.providers.find((p) => p._id === member.providerId);
-      if (provider) {
-        this.dataStore.notifications.unshift({
-          _id: `notif_${Date.now()}_${Math.random().toString(36).substring(2, 5)}`,
-          userId: provider.userId,
-          channel: 'IN_APP',
-          category: 'ASSIGNMENT',
-          title: `New Assignment: ${member.role} [${eventRef}]`,
-          message: `You have been assigned as ${member.role} for ceremony '${event.title}' on ${new Date(event.scheduledDate).toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })} at ${locationStr}. Ref: ${eventRef}. Instructions: ${event.notes || 'Please arrive at customer location 30 minutes prior with sacred veshti and Angavastram.'}`,
-=======
       // Notify provider
       const provider = this.dataStore.providers.find((p) => p._id === member.providerId);
       if (provider) {
@@ -144,7 +75,6 @@ export class AssignmentsService {
           channel: 'IN_APP',
           title: `New Assignment: ${event.title}`,
           message: `You have been assigned as ${member.role} for Sradham on ${new Date(event.scheduledDate).toLocaleDateString()}. Please confirm.`,
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
           status: 'DELIVERED',
           isRead: false,
           createdAt: new Date(),

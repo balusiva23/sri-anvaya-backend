@@ -20,19 +20,11 @@ export class PitruController {
 
   @Put(':id')
   updatePitruRecord(@CurrentUser() user: any, @Param('id') id: string, @Body() body: any) {
-<<<<<<< HEAD
-    return this.pitruService.updatePitruRecord(user, id, body);
-=======
     return this.pitruService.updatePitruRecord(user.userId, id, body);
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
   }
 
   @Delete(':id')
   deletePitruRecord(@CurrentUser() user: any, @Param('id') id: string) {
-<<<<<<< HEAD
-    return this.pitruService.deletePitruRecord(user, id);
-=======
     return this.pitruService.deletePitruRecord(user.userId, id);
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
   }
 }

@@ -12,90 +12,11 @@ export class Family {
   gothram?: string;
 
   @Prop()
-<<<<<<< HEAD
-  fatherGothram?: string;
-
-  @Prop()
-  motherGothram?: string;
-
-  @Prop({ type: Object, default: {} })
-  pitruChart?: {
-    fatherGothram?: string;
-    motherGothram?: string;
-    father?: string;
-    paternalGrandfather?: string;
-    paternalGreatGrandfather?: string;
-    mother?: string;
-    paternalGrandmother?: string;
-    paternalGreatGrandmother?: string;
-    paternalGGreatGrandmother?: string;
-    maternalGrandfather?: string;
-    maternalGreatGrandfather?: string;
-    maternalGGreatGrandfather?: string;
-    maternalGrandmother?: string;
-    maternalGreatGrandmother?: string;
-    maternalGGreatGrandmother?: string;
-    maternalGGGreatGrandmother?: string;
-  };
-
-  @Prop()
-  acharyan?: string;
-
-  @Prop()
-  vedham?: string;
-
-  @Prop()
-  suthram?: string;
-
-  @Prop()
-=======
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
   kuladeivam?: string;
 
   @Prop()
   nativePlace?: string;
 
-<<<<<<< HEAD
-  @Prop({ type: Object, default: {} })
-  fatherTharpanam?: {
-    masa?: string;
-    paksham?: string;
-    tithi?: string;
-  };
-
-  @Prop({ type: Object, default: {} })
-  motherTharpanam?: {
-    masa?: string;
-    paksham?: string;
-    tithi?: string;
-  };
-
-  @Prop({ type: Array, default: [] })
-  fatherLineage?: Array<{
-    relationship: string;
-    name: string;
-    spouseName?: string;
-    notes?: string;
-  }>;
-
-  @Prop({ type: Array, default: [] })
-  motherLineage?: Array<{
-    relationship: string;
-    name: string;
-    spouseName?: string;
-    notes?: string;
-  }>;
-
-  @Prop({ type: Array, default: [] })
-  maternalGrandmotherLineage?: Array<{
-    relationship: string;
-    name: string;
-    spouseName?: string;
-    notes?: string;
-  }>;
-
-=======
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
   @Prop({ type: Array, default: [] })
   members: Array<{
     id: string;

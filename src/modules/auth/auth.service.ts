@@ -14,31 +14,11 @@ export class AuthService {
   ) {}
 
   async register(dto: { email: string; password: string; fullName: string; phone?: string; role?: UserRole }) {
-<<<<<<< HEAD
-    const existing = this.dataStore.users.find((u) => u.email.toLowerCase() === dto.email.toLowerCase().trim());
-=======
     const existing = this.dataStore.users.find((u) => u.email.toLowerCase() === dto.email.toLowerCase());
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
     if (existing) {
       throw new BadRequestException('An account with this email address already exists');
     }
 
-<<<<<<< HEAD
-    if (dto.phone && dto.phone.trim()) {
-      const cleanDigits = dto.phone.replace(/\D/g, '');
-      if (cleanDigits.length >= 10) {
-        const existingPhone = this.dataStore.users.find((u) => {
-          const uDigits = (u.phone || '').replace(/\D/g, '');
-          return uDigits.length >= 10 && uDigits.slice(-10) === cleanDigits.slice(-10);
-        });
-        if (existingPhone) {
-          throw new BadRequestException('An account with this mobile number already exists');
-        }
-      }
-    }
-
-=======
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
     const passwordHash = await bcrypt.hash(dto.password, 10);
     const assignedRole = dto.role || UserRole.CUSTOMER;
 
@@ -47,11 +27,7 @@ export class AuthService {
       email: dto.email.toLowerCase().trim(),
       passwordHash,
       fullName: dto.fullName.trim(),
-<<<<<<< HEAD
-      phone: dto.phone ? dto.phone.trim() : '',
-=======
       phone: dto.phone || '',
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
       roles: [assignedRole],
       isActive: true,
       createdAt: new Date(),
@@ -75,11 +51,7 @@ export class AuthService {
       this.dataStore.customers.push(newCustomer);
     }
 
-<<<<<<< HEAD
-    // If provider, initialize Provider profile with PENDING status (Requires Admin Approval)
-=======
     // If provider, initialize Provider profile
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
     if (assignedRole === UserRole.PROVIDER) {
       const newProvider = {
         _id: `prov_${Date.now()}`,
@@ -89,15 +61,9 @@ export class AuthService {
         role: 'PUROHITH',
         city: 'Chennai',
         serviceLocations: ['Chennai'],
-<<<<<<< HEAD
-        verificationStatus: 'PENDING',
-        rating: 5.0,
-        isAvailable: false,
-=======
         verificationStatus: 'VERIFIED',
         rating: 5.0,
         isAvailable: true,
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
         completedEventsCount: 0,
         createdAt: new Date(),
       };
@@ -115,22 +81,6 @@ export class AuthService {
       });
     }
 
-<<<<<<< HEAD
-    // Real-time notification for Admin Dashboard
-    this.dataStore.notifications.unshift({
-      _id: `notif_${Date.now()}_${Math.random().toString(36).substring(2, 5)}`,
-      userId: null,
-      channel: 'IN_APP',
-      category: assignedRole === UserRole.PROVIDER ? 'PROVIDER_REGISTRATION' : 'CUSTOMER_REGISTRATION',
-      title: assignedRole === UserRole.PROVIDER ? 'New Provider Registration' : 'New Customer Registration',
-      message: `${newUser.fullName} (${newUser.email}, ${newUser.phone || 'No phone'}) registered as ${assignedRole}. ${assignedRole === UserRole.PROVIDER ? 'Pending Verification approval required.' : ''}`,
-      status: 'DELIVERED',
-      isRead: false,
-      createdAt: new Date(),
-    });
-
-=======
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
     const token = this.generateToken(newUser);
     return {
       user: {

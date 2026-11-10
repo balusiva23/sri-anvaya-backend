@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { Controller, Get, Post, Put, Delete, Body, Param, UseGuards } from '@nestjs/common';
-=======
 import { Controller, Get, Post, Put, Body, Param, UseGuards } from '@nestjs/common';
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
 import { CustomersService } from './customers.service';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
@@ -43,21 +39,4 @@ export class CustomersController {
   getCustomerById(@Param('id') id: string) {
     return this.customersService.getCustomerById(id);
   }
-<<<<<<< HEAD
-
-  @Put(':id')
-  @UseGuards(RolesGuard)
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.OPERATIONS)
-  updateCustomer(@Param('id') id: string, @Body() body: any) {
-    return this.customersService.updateCustomerAdmin(id, body);
-  }
-
-  @Delete(':id')
-  @UseGuards(RolesGuard)
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN)
-  deleteCustomer(@Param('id') id: string) {
-    return this.customersService.deleteCustomerAdmin(id);
-  }
-=======
->>>>>>> b6426bd68cb4124d9095710630c80a0be06e23f3
 }
